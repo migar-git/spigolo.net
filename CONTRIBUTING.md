@@ -1,41 +1,67 @@
 # Contributing to spigolo.net
 
+Thank you for contributing to Spigolo, the premium artisan pasta storefront.
+
 ## Local Development
 
+No build step required. Open `index.html` in a browser or serve locally:
+
 ```bash
+# Python
 python -m http.server 8080
-# or
+# Node.js
 npx serve .
 ```
 
-Open `http://localhost:8080`.
+Open http://localhost:8080 in your browser.
 
-## Site Structure
+## Repository Structure
 
-- `index.html` — main landing page
-- `producers/` — individual artisan producer pages
-- `blog/` — content marketing articles
-- `css/` — stylesheets
-- `js/` — client-side scripts
+```
+/
+├── index.html          # Homepage
+├── css/                # Stylesheets
+├── js/                 # JavaScript files
+├── blog/               # Journal/blog articles
+├── producers/          # Producer profile pages
+├── gift-boxes.html     # Gift box catalog
+├── *.html              # Other site pages
+├── CNAME               # Custom domain: spigolo.net
+├── robots.txt / sitemap.xml
+├── .gitignore
+└── docs/               # Project documentation
+```
 
-## Adding a Producer
+## Branch Naming
 
-1. Create `producers/producer-name.html` (copy an existing producer page as template).
-2. Link from the producers section on `index.html`.
-3. Add to `sitemap.xml`.
+| Purpose | Pattern | Example |
+|---|---|---|
+| New product page | `feat/<product-name>` | `feat/gragnano-rigatoni` |
+| Bug fix | `fix/<description>` | `fix/checkout-button` |
+| Content/copy update | `content/<description>` | `content/blog-pasta-guide` |
+| Documentation | `docs/<description>` | `docs/runbook-update` |
 
-## Adding Blog Content
+## Pull Request Process
 
-1. Create article HTML in `blog/`.
-2. Update `blog.html` listing.
-3. Add to `sitemap.xml`.
+1. Branch from `main`
+2. Make focused, atomic changes
+3. Test at 375px, 768px, 1280px viewports
+4. Verify Lighthouse Performance ≥ 90, Accessibility ≥ 90
+5. Ensure product copy is accurate (weights, origins, prices)
+6. Open PR with description; request review before merging
 
-## Deploying
+## Content Standards
 
-Push to `main`. GitHub Pages auto-deploys via CNAME record for spigolo.net. See `docs/DEPLOYMENT.md`.
+- All product descriptions must be factual (origin, wheat variety, drying method)
+- Producer names and certifications must be verified
+- Pricing must be consistent across product pages and sitemap data
+- Images must be optimized (max 200KB per image, WebP preferred)
 
-## Standards
+## Security
 
-- Keep product descriptions accurate — do not invent certifications or awards.
-- All external links: `rel="noopener noreferrer"`.
-- Do not commit payment credentials or API keys.
+- Never commit API keys, payment credentials, or `.env` files
+- See `docs/SECURITY.md` for full policy
+
+## Deployment
+
+Push to `main` triggers automatic GitHub Pages deployment. See `docs/DEPLOYMENT.md` for full procedures.
