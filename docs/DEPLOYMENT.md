@@ -2,35 +2,72 @@
 
 ## Platform
 
-Hosted on **GitHub Pages** (`main` branch → root). Custom domain set via `CNAME` file.
+Hosted on **GitHub Pages** with custom domain **spigolo.net**.
+
+## DNS Configuration
+
+| Record Type | Host | Value |
+|---|---|---|
+| A | @ | 185.199.108.153 |
+| A | @ | 185.199.109.153 |
+| A | @ | 185.199.110.153 |
+| A | @ | 185.199.111.153 |
+| CNAME | www | migar-git.github.io |
+
+Verify DNS:
+```bash
+dig spigolo.net A +short
+```
 
 ## Deploy Process
 
 ```bash
-git add .
-git commit -m "your message"
+git add <changed-files>
+git commit -m "feat/fix/content: describe your change"
 git push origin main
 ```
 
-GitHub Pages rebuilds within ~30 seconds. No CI pipeline required.
+GitHub Pages rebuilds automatically within ~60 seconds.
 
-## Custom Domain
+## Verifying Deployment
 
-- CNAME file contains `spigolo.net`
-- DNS A records should point to GitHub Pages IPs: 185.199.108–111.153
-- HTTPS enforced by GitHub Pages TLS
+1. Open https://spigolo.net in a private browser window
+2. Hard-refresh (Ctrl+Shift+R) to bypass cache
+3. Confirm changed content appears
+4. Verify payment CTAs link to correct Stripe/payment URLs
 
 ## Rollback
 
 ```bash
+# Revert last commit
 git revert HEAD
+git push origin main
+
+# Revert specific commit
+git revert <commit-sha>
 git push origin main
 ```
 
-## Pre-deploy Checklist
+## Environment Variables
 
-- [ ] HTML validates (no broken tags)
-- [ ] sitemap.xml updated for any new/removed pages
-- [ ] No hardcoded localhost or staging URLs
-- [ ] Schema.org markup valid (test via Google Rich Results Test)
-- [ ] No credentials or API keys in committed files
+None required for the static site.
+
+- Stripe publishable keys (`pk_live_*`) are safe in client HTML
+- Stripe secret keys must never be in this repo
+
+## Pre-Deploy Checklist
+
+- [ ] All pages render at 375px, 768px, 1280px
+- [ ] Product images load and are optimized (< 200KB each)
+- [ ] Payment/order CTAs point to correct URLs
+- [ ] Pricing is consistent across all pages
+- [ ] sitemap.xml updated for any new product or blog pages
+- [ ] Lighthouse Performance ≥ 90, Accessibility ≥ 90
+- [ ] No console errors in browser DevTools
+
+## Post-Deploy Checklist
+
+- [ ] spigolo.net resolves over HTTPS
+- [ ] Gift box pages accessible and rendering correctly
+- [ ] Journal/blog articles loading correctly
+- [ ] Order flow works end-to-end (test with Stripe test mode)
