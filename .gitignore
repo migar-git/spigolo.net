@@ -1,2 +1,6 @@
 # Agency identity: credentials stay local, the example is tracked.
 .env
+# Agency client credentials remain local.
+/.env
+/.env.agency
+!/.env.example
